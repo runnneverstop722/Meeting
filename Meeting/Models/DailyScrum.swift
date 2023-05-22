@@ -10,19 +10,18 @@ import Foundation
 struct DailyScrum: Identifiable {
     var id: UUID
     var title: String
-    var attendees: [String]
+    var attendees: [Attendee]
     var lengthInMinutes: Int
     var theme: Theme
     
     init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
         self.id = id
         self.title = title
-        self.attendees = attendees
+        self.attendees = attendees.map { Attendee(name: $0)} // map(_:) creates a new collection by iterating over and applying a transformation to each element in an existing collection.
         self.lengthInMinutes = lengthInMinutes
         self.theme = theme
     }
 }
-
 // Add an extension that provides some sample data.
 extension DailyScrum {
     static let sampleData: [DailyScrum] =
@@ -43,4 +42,17 @@ extension DailyScrum {
             lengthInMinutes: 5,
             theme: .poppy),
     ]
+}
+// extension with an inner structure named Attendee that is identifiable.
+// Scrum attendees could have the same name. Recall from Displaying data in a list that you can create a stable identifier when your model conforms to the Identifiable protocol.
+extension DailyScrum {
+    struct Attendee: Identifiable {
+        let id: UUID
+        var name: String
+        
+        init(id: UUID = UUID(), name: String) {
+            self.id = id
+            self.name = name
+        }
+    }
 }
