@@ -13,9 +13,11 @@ struct DetailView: View {
     var body: some View {
         List {
             Section(header: Text("Meeting Info")) {
-                Label("Start Meeting", systemImage: "timer") // Tip: By default, VoiceOver reads the title of the Label. If you want VoiceOver to convey more detail, replace the default spoken text by adding an accessibilityLabel that describes the element.
-                    .font(.headline)
+                NavigationLink(destination: MeetingView()) {
+                    Label("Start Meeting", systemImage: "timer") // Tip: By default, VoiceOver reads the title of the Label. If you want VoiceOver to convey more detail, replace the default spoken text by adding an accessibilityLabel that describes the element.
+                        .font(.headline)
                     .foregroundColor(.accentColor)
+                }
                 HStack {
                     Label("Length", systemImage: "clock")
                     Spacer()
@@ -41,6 +43,7 @@ struct DetailView: View {
                 }
             }
         }
+        .navigationTitle(scrum.title)
     }
 }
 
