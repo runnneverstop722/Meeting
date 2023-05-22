@@ -12,6 +12,14 @@ struct DailyScrum: Identifiable {
     var title: String
     var attendees: [Attendee]
     var lengthInMinutes: Int
+    var lengthInMinutesAsDouble: Double { //  Add a double-precision representation of the scrum’s length that you’ll bind to a slider
+        get { // Provide a getter that returns the length of a scrum meeting as a double value. For Swift functions that return a value
+            Double(lengthInMinutes)
+        }
+        set { // When the slider changes the value of lengthInMinutesAsDouble, convert the double value to an integer, and update the lengthInMinutes property.
+            lengthInMinutes = Int(newValue)
+        }
+    }
     var theme: Theme
     
     init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
@@ -42,6 +50,10 @@ extension DailyScrum {
             lengthInMinutes: 5,
             theme: .poppy),
     ]
+    // Add a static property named emptyScrum that returns an empty scrum
+    static var emptyScrum: DailyScrum {
+        DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
+    }
 }
 // extension with an inner structure named Attendee that is identifiable.
 // Scrum attendees could have the same name. Recall from Displaying data in a list that you can create a stable identifier when your model conforms to the Identifiable protocol.
