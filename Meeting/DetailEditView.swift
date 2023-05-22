@@ -19,8 +19,10 @@ struct DetailEditView: View {
                     Slider(value: $scrum.lengthInMinutesAsDouble, in: 5...30, step: 1) {
                         Text("Length") // The Text view won’t appear onscreen, but VoiceOver uses it to identify the purpose of the slider
                     }
+                    .accessibilityValue("\(scrum.lengthInMinutes) minutes") // Set the accessibility value for the Slider
                     Spacer()
                     Text("\(scrum.lengthInMinutes) minutes")
+                        .accessibilityHidden(true) // All the information that VoiceOver needs is in the accessibility value for the slide
                 }
             }
             Section(header: Text("Attendees")) {
@@ -40,6 +42,7 @@ struct DetailEditView: View {
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
+                            .accessibilityLabel("Add attendee")
                     }
                     .disabled(newAttendeeName.isEmpty) // The button activates when the user starts typing a name in the text field.
                 }
