@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DetailView: View {
-    let scrum: DailyScrum
+    @Binding var scrum: DailyScrum
     
+    @State private var editingScrum = DailyScrum.emptyScrum // create a source of truth for the binding that you added to the edit view. Update this empty scrum to match the selected scrum when the user taps the Edit button
     @State private var isPresentingEditView = false
     
     var body: some View {
@@ -49,11 +50,12 @@ struct DetailView: View {
         .toolbar {
             Button("Edit") {
                 isPresentingEditView = true
+                editingScrum = scrum // Assign the scrum value to editingScrum
             }
         }
         .sheet(isPresented: $isPresentingEditView) {
             NavigationStack {
-                DetailEditView()
+                DetailEditView(scrum: $editingScrum) // Update the DetailEditView initializer to include a binding to editingScrum. Changes that a user makes to scrum in the edit view are shared with the editingScrum property in the detail view.
                     .navigationTitle(scrum.title)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
@@ -64,6 +66,7 @@ struct DetailView: View {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
                                 isPresentingEditView = false
+                                scrum = editingScrum
                             }
                         }
                     }
@@ -76,7 +79,7 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         // Wrap DetailView in a NavigationStack to preview navigation elements on the canvas.
         NavigationStack {
-            DetailView(scrum: DailyScrum.sampleData[0])
+            DetailView(scrum: .constant(DailyScrum.sampleData[0]))
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailEditView: View {
-    @State private var scrum = DailyScrum.emptyScrum // Initialize the new property with an empty scrum. Declare @State properties as private so that they can be accessed only within the view in which you define them.
+    @Binding var scrum: DailyScrum // scrum is now an initialization parameter
     @State private var newAttendeeName = ""
     
     var body: some View {
@@ -54,6 +54,6 @@ struct DetailEditView: View {
 
 struct DetailEditView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailEditView()
+        DetailEditView(scrum: .constant(DailyScrum.sampleData[0]))
     }
 }
