@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct MeetingView: View {
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer() // Wrapping a property as a @StateObject means the view owns the source of truth for the object. @StateObject ties the ScrumTimer, which is an ObservableObject, to the MeetingView life cycle.
     
+    private var player: AVPlayer { AVPlayer.sharedDingPlayer }
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 16.0)
@@ -26,6 +28,10 @@ struct MeetingView: View {
         .foregroundColor(scrum.theme.accentColor)
         .onAppear {
             scrumTimer.reset(lengthInMinutes: scrum.lengthInMinutes, attendees: scrum.attendees) // The timer resets each time an instance of MeetingView shows on screen, indicating that a meeting should begin.
+            scrumTimer.speakerChangedAction = { // ScrumTimer calls this action when a speaker’s time expires.
+                player.seek(to: .zero) // seek to time .zero in the audio file. Seeking to time .zero ensures that the audio file always plays from the beginning.
+                player.play() // Play the audio file.
+            }
             scrumTimer.startScrum() // Call scrumTimer.startScrum() to start a new scrum timer after the timer resets.
         }
         .onDisappear {
