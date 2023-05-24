@@ -31,6 +31,13 @@ struct MeetingView: View {
         }
         .padding()
         .foregroundColor(scrum.theme.accentColor)
+        .onAppear {
+            scrumTimer.reset(lengthInMinutes: scrum.lengthInMinutes, attendees: scrum.attendees) // The timer resets each time an instance of MeetingView shows on screen, indicating that a meeting should begin.
+            scrumTimer.startScrum() // Call scrumTimer.startScrum() to start a new scrum timer after the timer resets.
+        }
+        .onDisappear {
+            scrumTimer.stopScrum() // The timer stops each time an instance of MeetingView leaves the screen, indicating that a meeting has ended.
+        }
         .navigationBarTitleDisplayMode(.inline)
     }
 }
