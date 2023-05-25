@@ -16,8 +16,8 @@ struct ThemePicker: View {
                 ThemeView(theme: theme)
                     .tag(theme)
             }
-            .pickerStyle(.navigationLink) // When a user interacts with a navigation style picker, the system pushes the picker view onto the navigation stack. The picker view displays each theme in a ThemeView that highlights the theme’s color.
         }
+        .pickerStyle(.navigationLink) // When a user interacts with a navigation style picker, the system pushes the picker view onto the navigation stack. The picker view displays each theme in a ThemeView that highlights the theme’s color.
     }
 }
 
