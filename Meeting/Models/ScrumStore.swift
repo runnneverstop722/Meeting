@@ -31,4 +31,13 @@ class ScrumStore: ObservableObject { // ObservableObject is a class-constrained 
         let scrums = try await task.value // `try await` to wait for the task to finish and assign the value to a constant named `scrums`. If the JSONDecoder throws an error inside the task, the error will be propagated when app tries to access the value property
         self.scrums = scrums // The type of task.value is the type that defined in the task initializer: [DailyScrum].
     }
+    
+    func save(scrums: [DailyScrum]) async throws {
+        let task = Task { // Encoding scrums can fail, so handle any errors that occur.
+            let data = try JSONEncoder().encode(scrums)
+            let outfile = try Self.fileURL() // Create a constant for the file URL.
+            try data.write(to: outfile) // write the encoded data to the file.
+        }
+        _ = try await task.value // wait for the task to complete. Waiting for the task ensures that any error thrown inside the task will be reported to the caller. `_` indicates that we're not interested in the result of task.value.
+    }
 }
