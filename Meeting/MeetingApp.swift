@@ -9,11 +9,18 @@ import SwiftUI
 
 @main
 struct MeetingApp: App {
-    @State private var scrums = DailyScrum.sampleData // initialize the property with sample data
+    @StateObject private var store = ScrumStore() // The @StateObject property wrapper creates a single instance of an observable object for each instance of the structure that declares it.
+    
     var body: some Scene {
         WindowGroup {
-            ScrumsView(scrums: $scrums) // Pass a binding to scrums to the ScrumsView initializer
-            // Set ScrumsView as the initial view for the app. WindowGroup is one of the primitive scenes that SwiftUI provides. In iOS, the views you add to the WindowGroup scene builder are presented in a window that fills the device’s entire screen.
+            ScrumsView(scrums: $store.scrums) // Pass ScrumsView a binding to store.scrums.
+                .task {
+                    do { // Use a do-catch statement to load the saved scrum or halt execution if load() throws an error.
+                        try await store.load()
+                    } catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
         }
     }
 }
