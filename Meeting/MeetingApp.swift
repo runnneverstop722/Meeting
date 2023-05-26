@@ -13,7 +13,15 @@ struct MeetingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ScrumsView(scrums: $store.scrums) // Pass ScrumsView a binding to store.scrums.
+            ScrumsView(scrums: $store.scrums) { // Pass ScrumsView a binding to store.scrums.
+                Task { // Add a trailing closure to the ScrumsView initializer, and create an empty Task inside.
+                    do { // Add a do-catch block to save the scrum store or halt execution if save() throws an error. Currently, the app terminates if it encounters an error writing to the file system. Need to add more robust error handling in a later tutorial
+                        try await store.save(scrums: store.scrums)
+                    } catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
                 .task {
                     do { // Use a do-catch statement to load the saved scrum or halt execution if load() throws an error.
                         try await store.load()
