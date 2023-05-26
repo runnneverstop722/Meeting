@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Theme: String, CaseIterable, Identifiable { // add conformance to CaseIterable and Identifiable, using the theme name as its id.
+enum Theme: String, CaseIterable, Identifiable, Codable { // add conformance to CaseIterable and Identifiable, using the theme name as its id.
     case bubblegum
     case buttercup
     case indigo

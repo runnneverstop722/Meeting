@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DailyScrum: Identifiable {
+struct DailyScrum: Identifiable, Codable {
     var id: UUID
     var title: String
     var attendees: [Attendee]
@@ -59,7 +59,7 @@ extension DailyScrum {
 // extension with an inner structure named Attendee that is identifiable.
 // Scrum attendees could have the same name. Recall from Displaying data in a list that you can create a stable identifier when your model conforms to the Identifiable protocol.
 extension DailyScrum {
-    struct Attendee: Identifiable {
+    struct Attendee: Identifiable, Codable {
         let id: UUID
         var name: String
         
