@@ -32,6 +32,16 @@ struct MeetingTimerView: View {
                 .accessibilityElement(children: .combine) // Use the accessibilityElement modifier to combine the elements inside the VStack. This modifier makes VoiceOver read the two text views as one sentence.
                 .foregroundStyle(theme.accentColor)
             }
+            .overlay {
+                ForEach(speakers) { speaker in
+                    if speaker.isCompleted, let index = speakers.firstIndex(where: { $0.id == speaker.id }) {
+                        SpeakerArc(speakerIndex: index, totalSpeaker: speakers.count)
+                            .rotation(Angle(degrees: -90))
+                            .stroke(theme.mainColor, lineWidth: 12)
+                    }
+                }
+            }
+            .padding(.horizontal)
     }
 }
 
