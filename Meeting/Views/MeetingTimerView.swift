@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MeetingTimerView: View {
     let speakers: [ScrumTimer.Speaker]
+    let isRecording: Bool
     let theme: Theme
     
     private var currentSpeaker: String {
@@ -23,6 +24,10 @@ struct MeetingTimerView: View {
                     Text(currentSpeaker)
                         .font(.title)
                     Text("is speaking")
+                    Image(systemName: isRecording ? "mic" : "mic.slash")
+                        .font(.title)
+                        .padding(.top)
+                        .accessibilityLabel(isRecording ? "with transcription" : "without transcription") // VoiceOver users might be unable to use visual cues, so include auditory indicators in addition to visual ones.
                 }
                 .accessibilityElement(children: .combine) // Use the accessibilityElement modifier to combine the elements inside the VStack. This modifier makes VoiceOver read the two text views as one sentence.
                 .foregroundStyle(theme.accentColor)
@@ -36,6 +41,6 @@ struct MeetingTimerView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        MeetingTimerView(speakers: speakers, theme: .yellow)
+        MeetingTimerView(speakers: speakers, isRecording: true ,theme: .yellow)
     }
 }
