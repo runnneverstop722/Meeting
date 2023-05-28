@@ -33,6 +33,7 @@
 		05C15E392A1A58AB00F302CC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C15E382A1A58AB00F302CC /* Theme.swift */; };
 		05C15E3B2A1A5A0400F302CC /* DailyScrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C15E3A2A1A5A0400F302CC /* DailyScrum.swift */; };
 		05C15E3D2A1AD6A400F302CC /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C15E3C2A1AD6A400F302CC /* CardView.swift */; };
+		E3A83D5C2A23252000159463 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A83D5B2A23252000159463 /* HistoryView.swift */; };
 		E3E34B392A231D7F005E68C5 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E34B382A231D7F005E68C5 /* SpeechRecognizer.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		05C15E382A1A58AB00F302CC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		05C15E3A2A1A5A0400F302CC /* DailyScrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScrum.swift; sourceTree = "<group>"; };
 		05C15E3C2A1AD6A400F302CC /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E3A83D5B2A23252000159463 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		E3E34B382A231D7F005E68C5 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 				0528DDC02A1CAEF1007C6E21 /* ScrumProgressViewStyle.swift */,
 				051F33662A205EC200E1FEC1 /* ErrorView.swift */,
 				051F336B2A21D5D300E1FEC1 /* SpeakerArc.swift */,
+				E3A83D5B2A23252000159463 /* HistoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				051F336C2A21D5D300E1FEC1 /* SpeakerArc.swift in Sources */,
 				051F33672A205EC200E1FEC1 /* ErrorView.swift in Sources */,
 				0528DDC32A1CB2F9007C6E21 /* ScrumTimer.swift in Sources */,
+				E3A83D5C2A23252000159463 /* HistoryView.swift in Sources */,
 				051F336A2A21D2C200E1FEC1 /* MeetingTimerView.swift in Sources */,
 				05C15E3B2A1A5A0400F302CC /* DailyScrum.swift in Sources */,
 				051F33632A202F4900E1FEC1 /* ScrumStore.swift in Sources */,

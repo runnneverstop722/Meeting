@@ -51,7 +51,8 @@ struct MeetingView: View {
         scrumTimer.stopScrum() // The timer stops each time an instance of MeetingView leaves the screen, indicating that a meeting has ended.
         speechRecognizer.stopTranscribing()
         isRecording = false
-        let newHistory = History(attendees: scrum.attendees) // Create a History, and insert it into scrum.history.
+        let newHistory = History(attendees: scrum.attendees,
+                                 transcript: speechRecognizer.transcript) // Create a History, and insert it into scrum.history.
         scrum.history.insert(newHistory, at: 0)
     }
 }
