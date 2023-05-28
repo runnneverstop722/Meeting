@@ -11,6 +11,8 @@ import AVFoundation
 struct MeetingView: View {
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer() // Wrapping a property as a @StateObject means the view owns the source of truth for the object. @StateObject ties the ScrumTimer (ObservableObject), to the MeetingView life cycle.
+    @StateObject var speechRecognizer = SpeechRecognizer()
+    @State private var isRecording = false
     
     private var player: AVPlayer { AVPlayer.sharedDingPlayer }
     var body: some View {
@@ -29,7 +31,7 @@ struct MeetingView: View {
             startScrum()
         }
         .onDisappear {
-            stopScrum()
+            endScrum()
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -40,10 +42,15 @@ struct MeetingView: View {
             player.seek(to: .zero) // Seek to time .zero in the audio file to always plays from the beginning.
             player.play() // Play the audio file.
         }
+        speechRecognizer.resetTranscript() // Call it to ensures that the speech recognizer is ready to begin.
+        speechRecognizer.startTranscribing()
+        isRecording = true
         scrumTimer.startScrum() // Call scrumTimer.startScrum() to start a new scrum timer after the timer resets.
     }
-    private func stopScrum() {
+    private func endScrum() {
         scrumTimer.stopScrum() // The timer stops each time an instance of MeetingView leaves the screen, indicating that a meeting has ended.
+        speechRecognizer.stopTranscribing()
+        isRecording = false
         let newHistory = History(attendees: scrum.attendees) // Create a History, and insert it into scrum.history.
         scrum.history.insert(newHistory, at: 0)
     }
